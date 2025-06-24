@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendar Cita</title>
+    <link rel="stylesheet" href="/user/appointments/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- AGREGAR verificación de carga de CSS -->
+    <script>
+        // Verificar que el CSS se cargue correctamente
+        function checkCSSLoaded() {
+            const links = document.querySelectorAll('link[rel="stylesheet"]');
+            links.forEach(link => {
+                link.addEventListener('error', function() {
+                    console.error('Error cargando CSS:', this.href);
+                    // Intentar recargar el CSS
+                    setTimeout(() => {
+                        this.href = this.href + '?v=' + Date.now();
+                    }, 1000);
+                });
+            });
+        }
+        checkCSSLoaded();
+    </script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <h1><i class="fas fa-calendar-plus"></i> Agendar Cita</h1>
+        <button id="myAppointmentsBtn" class="btn btn-outline">
+            <i class="fas fa-list"></i> Mis Citas
+        </button>
+    </header>
+
+    <div class="container">
+        <!-- Appointment Form -->
+        <div class="appointment-form-container">
+            <form id="appointmentForm" class="appointment-form">
+                <div class="form-group">
+                    <label for="appointmentDate">
+                        <i class="fas fa-calendar"></i> Fecha
+                    </label>
+                    <input type="date" id="appointmentDate" required>
+                    <small class="help-text">Selecciona una fecha disponible</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="appointmentTime">
+                        <i class="fas fa-clock"></i> Hora
+                    </label>                    <select id="appointmentTime" name="appointmentTime" required>
+                        <option value="">Selecciona una hora</option>
+                        <option value="09:00">9:00 AM</option>
+                        <option value="10:00">10:00 AM</option>
+                        <option value="11:00">11:00 AM</option>
+                        <option value="12:00">12:00 PM</option>
+                        <option value="13:00">1:00 PM</option>
+                        <option value="14:00">2:00 PM</option>
+                        <option value="15:00">3:00 PM</option>
+                        <option value="16:00">4:00 PM</option>
+                    </select>
+                    <small class="help-text">Los horarios ocupados se mostrarán como no disponibles</small>
+                </div>                <div class="form-group">
+                    <label>
+                        <i class="fas fa-clipboard-list"></i> Motivo de la cita
+                        <span class="required-indicator">*</span>
+                    </label>
+                    <div class="reason-options">
+                        <label class="reason-option">
+                            <input type="radio" name="reason" value="toma_medidas" required>
+                            <span class="reason-card">
+                                <i class="fas fa-ruler"></i>
+                                <strong>Toma de medidas</strong>
+                                <small>Para confección de prendas personalizadas</small>
+                            </span>
+                        </label>
+                        <label class="reason-option">
+                            <input type="radio" name="reason" value="asesoria" required>
+                            <span class="reason-card">
+                                <i class="fas fa-user-tie"></i>
+                                <strong>Asesoría</strong>
+                                <small>Consulta sobre estilos y tendencias</small>
+                            </span>
+                        </label>
+                        <label class="reason-option">
+                            <input type="radio" name="reason" value="otra" required>
+                            <span class="reason-card">
+                                <i class="fas fa-ellipsis-h"></i>
+                                <strong>Otra</strong>
+                                <small>Especifica en las notas</small>
+                            </span>                        </label>
+                    </div>
+                    <div id="reasonError" class="error-message" style="display: none;">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Por favor, selecciona un motivo para tu cita
+                    </div>
+                </div>
+
+                <div class="form-group" id="notesGroup">
+                    <label for="appointmentNotes">
+                        <i class="fas fa-sticky-note"></i> Notas adicionales
+                        <span id="notesRequired" class="required-indicator" style="display: none;">*</span>
+                    </label>
+                    <textarea 
+                        id="appointmentNotes" 
+                        placeholder="Describe el motivo de tu cita o cualquier información adicional..."
+                        rows="4"
+                    ></textarea>
+                    <small class="help-text" id="notesHelp">Opcional - Proporciona detalles adicionales sobre tu cita</small>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-large">
+                    <i class="fas fa-calendar-check"></i> Agendar Cita
+                </button>
+            </form>
+        </div>
+
+        <!-- Available Times Info -->
+        <div class="info-card">
+            <h3><i class="fas fa-info-circle"></i> Información importante</h3>
+            <ul>
+                <li><i class="fas fa-clock"></i> Horarios disponibles: 9:00 AM - 4:00 PM</li>
+                <li><i class="fas fa-calendar-alt"></i> Solo días laborables (Lunes a Viernes)</li>
+                <li><i class="fas fa-bell"></i> Recibirás confirmación una vez procesada tu cita</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- My Appointments Modal -->
+    <div id="appointmentsModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-calendar-check"></i> Mis Citas</h2>
+                <div class="modal-header-actions">
+                    <button id="closeAppointmentsModal" class="close-btn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-filters">
+                <div class="filter-group">
+                    <label for="myAppointmentFilter">Estado:</label>
+                    <select id="myAppointmentFilter">
+                        <option value="all">Todas las citas</option>
+                        <option value="pending">Pendientes</option>
+                        <option value="confirmed">Confirmadas</option>
+                        <option value="cancelled">Canceladas</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="myAppointmentDateFilter">Fecha:</label>
+                    <select id="myAppointmentDateFilter">
+                        <option value="all">Todas las fechas</option>
+                        <option value="upcoming">Próximas</option>
+                        <option value="past">Pasadas</option>
+                        <option value="week">Esta semana</option>
+                        <option value="month">Este mes</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div id="appointmentsList" class="appointments-list">
+                    <!-- Appointments will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-check-circle"></i> Confirmar Cita</h2>
+            </div>
+            <div class="modal-body">
+                <div id="confirmationDetails" class="confirmation-details">
+                    <h3><i class="fas fa-calendar-check"></i> Confirmar Cita</h3>
+                    <div class="detail-item">
+                        <span class="detail-label">Fecha:</span>
+                        <span class="detail-value" id="confirmDate"></span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Hora:</span>
+                        <span class="detail-value" id="confirmTime"></span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Motivo:</span>
+                        <span class="detail-value" id="confirmReason"></span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Notas:</span>
+                        <span class="detail-value" id="confirmNotes"></span>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button id="cancelConfirmation" class="btn btn-outline">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                    <button id="confirmAppointment" class="btn btn-primary">
+                        <i class="fas fa-check"></i> Confirmar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div id="overlay" class="overlay"></div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner" style="display: none;">
+        <div class="spinner"></div>
+        <p>Procesando...</p>
+    </div>
+
+    <script src="/user/appointments/script.js"></script>
+</body>
+</html>

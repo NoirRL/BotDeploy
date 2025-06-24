@@ -1,0 +1,1647 @@
+/* Reset y configuración base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background: var(--bg-color);
+    margin: 0;
+    padding: 0;
+}
+
+/* Variables CSS */
+:root {
+    --primary-color: #3498db;
+    --primary-dark: #2980b9;
+    --secondary-color: #2ecc71;
+    --danger-color: #e74c3c;
+    --warning-color: #f39c12;
+    --text-color: #2c3e50;
+    --text-light: #7f8c8d;
+    --bg-color: #f8f9fa;
+    --white: #ffffff;
+    --border-color: #e9ecef;
+    --shadow: 0 2px 10px rgba(0,0,0,0.1);
+    --shadow-hover: 0 4px 20px rgba(0,0,0,0.15);
+    --border-radius: 8px;
+    --transition: all 0.3s ease;
+}
+
+/* Container principal - CENTRADO */
+.container {
+    max-width: 95%; /* Aumentar a 95% para mejor uso del espacio */
+    margin: 0 auto;
+    padding: 0 2%; /* Margen discreto del 2% en los lados */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Header - CENTRADO */
+.header {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: var(--white);
+    padding: 2rem 0;
+    margin-bottom: 2rem;
+    border-radius: var(--border-radius);
+    width: 100%;
+    text-align: center;
+}
+
+.header-content {
+    text-align: center;
+}
+
+.header-content h1 {
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.header-content p {
+    opacity: 0.9;
+    font-size: 1.1rem;
+}
+
+/* Navigation Tabs - GRID 2x2 LAYOUT */
+.nav-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dos columnas de igual tamaño */
+    grid-template-rows: 1fr 1fr; /* Dos filas de igual tamaño */
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    background: var(--white);
+    border-radius: var(--border-radius);
+    padding: 0.5rem;
+    box-shadow: var(--shadow);
+    width: 100%;
+    max-width: none;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+}
+
+.tab-btn {
+    padding: 1rem 1.2rem; /* Aumentar padding vertical para mejor proporción */
+    border: none;
+    background: transparent;
+    color: var(--text-light);
+    cursor: pointer;
+    border-radius: var(--border-radius);
+    font-size: 1.1rem; /* Ajustar tamaño de fuente */
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+    min-height: 60px; /* Altura mínima para uniformidad */
+    text-align: center;
+}
+
+.tab-btn:hover {
+    background: var(--bg-color);
+    color: var(--primary-color);
+    transform: translateY(-1px);
+}
+
+.tab-btn.active {
+    background: var(--primary-color);
+    color: var(--white);
+    box-shadow: var(--shadow);
+}
+
+.tab-btn i {
+    font-size: 1.1rem; /* Ajustar tamaño de icono */
+}
+
+/* Main Content - MISMO ANCHO QUE HEADER */
+.main-content {
+    min-height: 60vh;
+    width: 100%; /* AJUSTAR: Mismo ancho que el header */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tab-content {
+    display: none;
+    width: 100%; /* AJUSTAR: Usar todo el ancho disponible */
+    max-width: none; /* REMOVER límite */
+    animation: fadeIn 0.3s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Section Header - CENTRADO Y COMPACTO */
+.section-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.section-header h2 {
+    color: var(--text-color);
+    font-size: 1.5rem;
+    margin: 0;
+    text-align: center;
+}
+
+/* Section Actions - SOLO AGREGAR (SIN REFRESH) */
+.section-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+/* Ocultar botones de refresh */
+#refreshProductsBtn,
+#refreshAppointmentsBtn,
+#refreshInvoicesBtn {
+    display: none;
+}
+
+/* Filters - MISMO ANCHO QUE HEADER CON ESTILOS MEJORADOS COMO EL CATÁLOGO */
+.appointments-filters,
+.invoices-filters {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding: 1.5rem; /* Aumentar padding como en el catálogo */
+    background: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    flex-wrap: wrap;
+    justify-content: center; /* Centrar filtros */
+    width: 100%; /* AJUSTAR: Mismo ancho que el header */
+    max-width: none; /* REMOVER límite */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem; /* Aumentar gap para mejor espaciado */
+    min-width: 200px; /* Aumentar ancho mínimo como en el catálogo */
+}
+
+.filter-group label {
+    font-size: 0.9rem;
+    color: var(--text-color); /* Cambiar a color más oscuro como en el catálogo */
+    font-weight: 600; /* Aumentar peso de fuente como en el catálogo */
+}
+
+.filter-group select {
+    padding: 0.75rem 1rem; /* MODIFICADO: Añadir padding horizontal uniforme como en el catálogo */
+    border: 2px solid var(--border-color); /* MODIFICADO: Borde más grueso para consistencia */
+    border-radius: var(--border-radius);
+    background: var(--white);
+    color: var(--text-color);
+    font-size: 1rem;
+    font-weight: 500; /* NUEVO: Peso de fuente consistente como en el catálogo */
+    transition: var(--transition); /* NUEVO: Transición suave */
+    height: 48px; /* NUEVO: Altura fija para consistencia como en el catálogo */
+}
+
+/* NUEVO: Estados hover y focus para los selectores como en el catálogo */
+.filter-group select:hover {
+    border-color: var(--primary-color);
+}
+
+.filter-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+/* Buttons - ESTANDARIZADO CON ALTURA UNIFORME */
+.btn {
+    padding: 1rem 1.2rem; /* CORREGIDO: Aumentar padding vertical de 0.6rem a 1rem para uniformidad */
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 0.9rem; /* Reducido tamaño de fuente */
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem; /* Reducido gap */
+    white-space: nowrap;
+    min-height: 48px; /* NUEVO: Altura mínima estándar para todos los botones */
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow);
+}
+
+.btn i {
+    font-size: 0.9rem; /* Iconos más pequeños */
+}
+
+.btn-icon {
+    padding: 1rem; /* CORREGIDO: Aumentar padding de 0.6rem a 1rem para uniformidad */
+    width: auto;
+    min-width: 48px; /* CORREGIDO: Aumentar de 40px a 48px para uniformidad */
+    height: 48px; /* CORREGIDO: Aumentar de 40px a 48px para uniformidad */
+    justify-content: center;
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.btn-outline:hover {
+    background: var(--primary-color);
+    color: var(--white);
+    transform: translateY(-1px);
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: var(--white);
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: var(--text-light);
+    color: var(--white);
+}
+
+.btn-secondary:hover {
+    background: #6c757d;
+}
+
+.btn-success {
+    background: var(--secondary-color);
+    color: var(--white);
+}
+
+.btn-success:hover {
+    background: #27ae60;
+}
+
+.btn-danger {
+    background: var(--danger-color);
+    color: var(--white);
+}
+
+.btn-danger:hover {
+    background: #c0392b;
+}
+
+.btn-warning {
+    background: var(--warning-color);
+    color: var(--white);
+}
+
+.btn-warning:hover {
+    background: #e67e22;
+}
+
+.btn-sm {
+    padding: 0.75rem 0.8rem; /* CORREGIDO: Aumentar padding vertical de 0.4rem a 0.75rem para uniformidad */
+    font-size: 0.8rem; /* Reducido tamaño de fuente */
+    min-height: 40px; /* NUEVO: Altura mínima para botones pequeños */
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    animation: fadeIn 0.3s ease;
+    overflow-y: auto; /* Permitir scroll solo dentro del modal */
+}
+
+.modal.show {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Prevenir scroll del body cuando el modal está abierto */
+body.modal-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+}
+
+.modal-content {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    width: 90%;
+    max-width: 500px; /* Reducir ancho máximo del modal */
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow-hover);
+    animation: slideIn 0.3s ease;
+    margin: 0 auto; /* Centrar modal */
+    position: relative; /* Asegurar posicionamiento correcto */
+}
+
+@keyframes slideIn {
+    from { transform: scale(0.8) translateY(-50px); opacity: 0; }
+    to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.modal-header h3 {
+    margin: 0;
+    color: var(--text-color);
+}
+
+.close {
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-light);
+    transition: color 0.3s ease;
+}
+
+.close:hover {
+    color: var(--danger-color);
+}
+
+/* Forms */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Cambiar a una sola columna */
+    gap: 1rem;
+    margin-bottom: 1rem;
+    max-width: 450px; /* Limitar ancho del formulario */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+/* Estilos para campos obligatorios */
+.form-group label .required {
+    color: var(--danger-color);
+    margin-left: 2px;
+    font-weight: bold;
+}
+
+/* Estilos para pistas de ayuda */
+.field-hint {
+    color: var(--text-light);
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+    display: block;
+    font-style: italic;
+}
+
+.form-group small {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+    display: block;
+}
+
+/* Mejorar la validación visual de campos requeridos */
+.form-group input[required]:invalid {
+    border-color: var(--danger-color);
+    background-color: rgba(231, 76, 60, 0.05);
+}
+
+.form-group input[required]:valid {
+    border-color: var(--secondary-color);
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center; /* Centrar botones de acción */
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+/* Products List - MISMO ANCHO QUE HEADER */
+.products-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    width: 100%; /* AJUSTAR: Mismo ancho que el header */
+    max-width: none; /* REMOVER límite */
+    margin: 0 auto;
+    justify-content: center;
+    padding: 0 1rem;
+}
+
+.product-card {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%; /* Ancho completo dentro del grid */
+    max-width: none; /* Remover límite para uniformidad */
+    margin: 0; /* Sin margen individual para uniformidad en grid */
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+}
+
+.product-image {
+    width: 100%;
+    height: 180px; /* Reducir altura */
+    object-fit: cover;
+    background: var(--bg-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-light);
+    font-size: 2.5rem; /* Reducir tamaño del ícono */
+}
+
+.product-info {
+    padding: 1rem; /* Reducir padding */
+    text-align: center; /* Centrar contenido */
+}
+
+.product-name {
+    font-size: 1.1rem; /* Reducir tamaño */
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.product-brand {
+    color: var(--text-light);
+    font-size: 0.85rem; /* Reducir tamaño */
+    margin-bottom: 0.5rem;
+}
+
+.product-price {
+    font-size: 1.2rem; /* Reducir tamaño */
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.product-stock {
+    font-size: 0.85rem; /* Reducir tamaño */
+    margin-bottom: 1rem;
+}
+
+.stock-high { color: var(--secondary-color); }
+.stock-medium { color: var(--warning-color); }
+.stock-low { color: var(--danger-color); }
+
+.product-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem; /* Reducir gap */
+    margin-bottom: 1rem;
+    justify-content: center; /* Centrar tags */
+}
+
+.tag {
+    background: var(--bg-color);
+    color: var(--text-color);
+    padding: 0.2rem 0.4rem; /* Reducir padding */
+    border-radius: 12px;
+    font-size: 0.75rem; /* Reducir tamaño */
+}
+
+.product-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-direction: column; /* Cambiar a columna para mejor apariencia */
+    align-items: stretch;
+}
+
+.product-actions .btn {
+    justify-content: center;
+    font-size: 0.85rem; /* Reducir tamaño de fuente */
+    padding: 1rem 1rem; /* CORREGIDO: Aumentar padding vertical para uniformidad con facturas */
+}
+
+/* Appointments List - MISMO ANCHO QUE HEADER */
+.appointments-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+    width: 100%; /* AJUSTAR: Mismo ancho que el header */
+    max-width: none; /* REMOVER límite */
+    margin: 0 auto;
+    justify-content: center;
+    padding: 0 1rem;
+}
+
+.appointment-card {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 1.25rem; /* Reducir padding */
+    border-left: 4px solid var(--primary-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%; /* Ancho completo dentro del grid */
+    max-width: none; /* Remover límite para uniformidad */
+    margin: 0; /* Sin margen individual para uniformidad en grid */
+}
+
+.appointment-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+}
+
+.appointment-header {
+    display: flex;
+    flex-direction: column; /* Cambiar a columna para mejor distribución */
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.appointment-info h3 {
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem; /* Reducir tamaño */
+    text-align: center; /* Centrar título */
+}
+
+.appointment-datetime {
+    color: var(--text-light);
+    font-size: 0.85rem; /* Reducir tamaño */
+    margin-bottom: 0.5rem;
+    text-align: center; /* Centrar fecha/hora */
+}
+
+.appointment-reason {
+    background: var(--bg-color);
+    padding: 0.4rem; /* Reducir padding */
+    border-radius: var(--border-radius);
+    font-size: 0.85rem; /* Reducir tamaño */
+    margin-bottom: 0.5rem;
+    text-align: center; /* Centrar razón */
+}
+
+.appointment-notes {
+    color: var(--text-light);
+    font-style: italic;
+    font-size: 0.85rem; /* Reducir tamaño */
+    text-align: center; /* Centrar notas */
+}
+
+.appointment-status {
+    padding: 0.3rem 0.8rem; /* Ajustar padding */
+    border-radius: 15px;
+    font-size: 0.75rem; /* Reducir tamaño */
+    font-weight: 500;
+    text-transform: uppercase;
+    align-self: center; /* Centrar estado */
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.status-pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-attended {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-cancelled {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.appointment-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-direction: column; /* Cambiar a columna */
+    align-items: stretch;
+    margin-top: 1rem;
+}
+
+.appointment-actions .btn {
+    flex: 1;
+    margin: 0.25rem 0;
+    font-size: 0.8rem;
+    padding: 1rem; /* CORREGIDO: Aumentar padding para uniformidad */
+}
+
+/* Invoices List - MISMO ANCHO QUE HEADER Y UNIFORME CON OTROS CONTENIDOS */
+.invoices-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); /* CORREGIDO: Reducir de 400px a 320px para uniformidad */
+    gap: 1.5rem;
+    width: 100%; /* AJUSTAR: Mismo ancho que el header */
+    max-width: none; /* REMOVER límite */
+    margin: 0 auto;
+    justify-content: center;
+    padding: 0 1rem;
+}
+
+.invoice-card {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 1rem; /* CORREGIDO: Reducir padding de 1.25rem a 1rem para uniformidad */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%; /* Ancho completo dentro del grid */
+    max-width: none; /* Remover límite para uniformidad */
+    margin: 0; /* Sin margen individual para uniformidad en grid */
+}
+
+.invoice-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.75rem; /* CORREGIDO: Reducir de 1rem a 0.75rem */
+    flex-wrap: wrap;
+    gap: 0.5rem; /* CORREGIDO: Reducir gap de 0.75rem a 0.5rem */
+}
+
+.invoice-info {
+    flex: 1;
+    text-align: center; /* Centrar información básica */
+}
+
+.invoice-number {
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 1rem; /* CORREGIDO: Reducir de 1.05rem a 1rem para uniformidad */
+    margin-bottom: 0.25rem;
+}
+
+.invoice-date {
+    color: var(--text-light);
+    font-size: 0.8rem; /* CORREGIDO: Reducir de 0.85rem a 0.8rem */
+    margin-bottom: 0.5rem;
+}
+
+/* NUEVO: Contenedor para información de usuario con botón toggle */
+.invoice-customer-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.toggle-customer-info {
+    background: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.85rem;
+}
+
+.toggle-customer-info:hover {
+    background: var(--primary-dark);
+    transform: scale(1.1);
+}
+
+.customer-label {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.invoice-customer {
+    background: var(--bg-color);
+    padding: 0.6rem; /* CORREGIDO: Reducir de 0.75rem a 0.6rem */
+    border-radius: var(--border-radius);
+    margin-bottom: 0.75rem; /* CORREGIDO: Reducir de 1rem a 0.75rem */
+    display: none; /* Oculto por defecto */
+    animation: slideDown 0.3s ease;
+}
+
+.invoice-customer.show {
+    display: block;
+}
+
+@keyframes slideDown {
+    from { 
+        opacity: 0; 
+        transform: translateY(-10px); 
+        max-height: 0;
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+        max-height: 200px;
+    }
+}
+
+.invoice-customer strong {
+    color: var(--text-color);
+    font-size: 0.9rem; /* CORREGIDO: Reducir de 0.95rem a 0.9rem */
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    justify-content: center; /* Centrar nombre */
+}
+
+.customer-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem; /* CORREGIDO: Reducir de 0.25rem a 0.2rem */
+    margin-top: 0.5rem;
+    text-align: center; /* Centrar detalles */
+}
+
+.customer-details small {
+    color: var(--text-light);
+    font-size: 0.75rem; /* CORREGIDO: Reducir de 0.8rem a 0.75rem */
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centrar elementos */
+    gap: 0.5rem;
+}
+
+.invoice-total {
+    font-size: 1.2rem; /* CORREGIDO: Reducir de 1.3rem a 1.2rem para uniformidad */
+    font-weight: 700;
+    color: var(--primary-color);
+    text-align: center; /* Centrar total */
+}
+
+.invoice-status-section {
+    margin-bottom: 0.75rem; /* CORREGIDO: Reducir de 1rem a 0.75rem */
+    display: flex;
+    justify-content: center; /* Centrar estado */
+}
+
+.invoice-status {
+    padding: 0.3rem 0.8rem; /* CORREGIDO: Reducir padding de 0.4rem 0.9rem a 0.3rem 0.8rem */
+    border-radius: 20px;
+    font-size: 0.8rem; /* CORREGIDO: Reducir de 0.85rem a 0.8rem */
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-pending {
+    background: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeaa7;
+}
+
+.status-paid {
+    background: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+.status-completed {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.status-cancelled {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.invoice-items {
+    margin-bottom: 1rem; /* CORREGIDO: Reducir de 1.5rem a 1rem */
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.invoice-items h4 {
+    background: var(--bg-color);
+    color: var(--text-color);
+    padding: 0.5rem 0.7rem; /* CORREGIDO: Reducir padding de 0.6rem 0.8rem a 0.5rem 0.7rem */
+    margin: 0;
+    font-size: 0.85rem; /* CORREGIDO: Reducir de 0.9rem a 0.85rem */
+    border-bottom: 1px solid var(--border-color);
+    text-align: center; /* Centrar título */
+}
+
+.invoice-item {
+    display: flex; /* Cambiar a flex para mejor control */
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.7rem; /* CORREGIDO: Reducir padding de 0.6rem 0.8rem a 0.5rem 0.7rem */
+    border-bottom: 1px solid var(--border-color);
+}
+
+.invoice-item:last-child {
+    border-bottom: none;
+}
+
+.item-name {
+    font-weight: 500;
+    color: var(--text-color);
+    font-size: 0.85rem; /* CORREGIDO: Reducir de 0.9rem a 0.85rem */
+    flex: 1;
+}
+
+.item-details {
+    color: var(--text-light);
+    font-size: 0.75rem; /* CORREGIDO: Reducir de 0.8rem a 0.75rem */
+    margin: 0 0.5rem;
+}
+
+.item-price {
+    font-weight: 600;
+    color: var(--primary-color);
+    font-size: 0.85rem; /* CORREGIDO: Reducir de 0.9rem a 0.85rem */
+}
+
+.no-items {
+    padding: 0.7rem; /* CORREGIDO: Reducir de 0.8rem a 0.7rem */
+    text-align: center;
+    color: var(--text-light);
+    font-style: italic;
+    font-size: 0.85rem; /* CORREGIDO: Reducir de 0.9rem a 0.85rem */
+}
+
+.invoice-actions {
+    display: flex;
+    gap: 0.4rem; /* CORREGIDO: Reducir de 0.5rem a 0.4rem */
+    flex-direction: column; /* Cambiar a columna */
+    align-items: stretch;
+    justify-content: center;
+    padding-top: 0.75rem; /* CORREGIDO: Reducir de 1rem a 0.75rem */
+    border-top: 1px solid var(--border-color);
+}
+
+/* Admins List - MISMO ANCHO QUE HEADER Y UNIFORME CON OTROS CONTENIDOS */
+.admins-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    max-width: none;
+    margin: 0 auto;
+    justify-content: center;
+    padding: 0 1rem;
+}
+
+.admin-card {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    position: relative;
+}
+
+.admin-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.admin-info {
+    flex: 1;
+    text-align: center;
+}
+
+.admin-name {
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+}
+
+.admin-role {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    font-style: italic;
+}
+
+.admin-local {
+    background: var(--bg-color);
+    padding: 0.3rem 0.6rem;
+    border-radius: var(--border-radius);
+    font-size: 0.85rem;
+    margin-bottom: 0.75rem;
+    text-align: center;
+    color: var(--text-color);
+}
+
+.admin-telegram {
+    color: var(--text-light);
+    font-size: 0.8rem;
+    text-align: center;
+    margin-bottom: 0.75rem;
+    font-family: monospace;
+}
+
+.admin-role-badge {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.role-admin {
+    background: #e3f2fd;
+    color: #1565c0;
+    border: 1px solid #bbdefb;
+}
+
+.role-superadmin {
+    background: #fce4ec;
+    color: #c2185b;
+    border: 1px solid #f8bbd9;
+}
+
+.admin-actions {
+    display: flex;
+    gap: 0.4rem;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.admin-actions .btn {
+    justify-content: center;
+    font-size: 0.85rem;
+    padding: 0.8rem 1rem;
+}
+
+/* Admin Modal específico */
+#adminModal .modal-content {
+    max-width: 450px;
+}
+
+#adminForm {
+    padding: 1.5rem;
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+#adminForm .form-group {
+    margin-bottom: 1.2rem;
+}
+
+#adminForm .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+#adminForm .form-group input,
+#adminForm .form-group select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+#adminForm .form-group input:focus,
+#adminForm .form-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.1);
+}
+
+#adminForm .form-group small {
+    color: var(--text-light);
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+    display: block;
+}
+
+/* NUEVO: Estilos específicos para administradores hardcodeados */
+.admin-card.admin-hardcoded {
+    border: 2px solid #f39c12;
+    background: linear-gradient(135deg, #fff9e6 0%, #ffffff 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.admin-card.admin-hardcoded::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #f39c12, #e67e22);
+}
+
+.admin-role-badge i.fas.fa-lock {
+    margin-left: 0.5rem;
+    font-size: 0.6rem;
+    opacity: 0.8;
+}
+
+.hardcoded-badge {
+    background: #f39c12;
+    color: white;
+    padding: 0.2rem 0.5rem;
+    border-radius: 8px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-left: 0.5rem;
+    box-shadow: 0 1px 3px rgba(243, 156, 18, 0.3);
+}
+
+.admin-system-note {
+    background: #fff3cd;
+    color: #856404;
+    padding: 0.5rem;
+    border-radius: var(--border-radius);
+    font-size: 0.8rem;
+    text-align: center;
+    margin-top: 0.5rem;
+    border: 1px solid #ffeaa7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.admin-system-note i {
+    color: #f39c12;
+}
+
+.admin-info-text {
+    text-align: center;
+    padding: 0.75rem;
+    background: var(--bg-color);
+    border-radius: var(--border-radius);
+    color: var(--text-light);
+}
+
+.admin-info-text i {
+    margin-right: 0.5rem;
+    color: var(--primary-color);
+}
+
+/* MEJORAR: Badges de rol con iconos mejorados */
+.role-admin i.fas.fa-lock,
+.role-superadmin i.fas.fa-lock {
+    margin-left: 0.5rem;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+}
+
+/* NUEVO: Indicadores visuales mejorados para administradores del sistema */
+.admin-card.admin-hardcoded .admin-name {
+    position: relative;
+}
+
+.admin-card.admin-hardcoded .admin-name::after {
+    content: '🔒';
+    position: absolute;
+    right: -25px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+/* RESPONSIVE: Ajustes para administradores hardcodeados en móvil */
+@media (max-width: 768px) {
+    .admin-card.admin-hardcoded .admin-name::after {
+        position: relative;
+        right: auto;
+        top: auto;
+        transform: none;
+        margin-left: 0.5rem;
+        display: inline;
+    }
+}
+
+/* Responsive Design - Mobile First */
+@media (max-width: 1200px) {
+    .container {
+        padding: 0 10px;
+    }
+    
+    .products-list {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Header responsive */
+    .header {
+        padding: 1.5rem 0;
+        margin-bottom: 1rem;
+    }
+    
+    .header-content h1 {
+        font-size: 1.5rem;
+    }
+    
+    .header-content p {
+        font-size: 1rem;
+    }
+    
+    /* Navigation tabs responsive */
+    .nav-tabs {
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 0.5rem;
+    }
+    
+    .tab-btn {
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+        justify-content: flex-start;
+        text-align: left;
+    }
+    
+    /* Section header responsive */
+    .section-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+    
+    .section-actions {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    /* Filters responsive */
+    .appointments-filters,
+    .invoices-filters {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+    }
+    
+    .filter-group {
+        min-width: 100%;
+    }
+    
+    /* Products grid responsive */
+    .products-list {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .product-card {
+        margin-bottom: 1rem;
+    }
+    
+    .product-image {
+        height: 180px;
+    }
+    
+    .product-info {
+        padding: 1rem;
+    }
+    
+    .product-actions {
+        justify-content: space-between;
+    }
+    
+    .product-actions .btn {
+        flex: 1;
+        margin: 0 0.25rem;
+        font-size: 0.8rem;
+        padding: 1rem 0.5rem; /* CORREGIDO: Aumentar padding vertical para uniformidad */
+    }
+    
+    /* Appointments responsive */
+    .appointment-header {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .appointment-actions {
+        justify-content: stretch;
+    }
+    
+    .appointment-actions .btn {
+        flex: 1;
+        margin: 0.25rem 0;
+        font-size: 0.8rem;
+        padding: 1rem; /* CORREGIDO: Aumentar padding para uniformidad */
+    }
+    
+    /* Modal responsive */
+    .modal-content {
+        width: 95%;
+        margin: 1rem;
+        max-height: 95vh;
+    }
+    
+    .modal-header {
+        padding: 1rem;
+    }
+    
+    .modal-header h3 {
+        font-size: 1.1rem;
+    }
+    
+    #productForm {
+        padding: 1rem;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .form-actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    /* Invoice responsive */
+    .invoice-header {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: left;
+    }
+    
+    .invoice-total {
+        text-align: left;
+        margin-top: 0.5rem;
+        font-size: 1.2rem;
+    }
+    
+    .invoice-item {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+        text-align: left;
+    }
+    
+    .item-price {
+        text-align: left;
+        font-size: 1.1rem;
+    }
+    
+    .invoice-actions {
+        justify-content: stretch;
+    }
+    
+    .invoice-actions .btn {
+        flex: 1;
+        justify-content: center;
+        font-size: 0.8rem;
+        padding: 1rem 1rem
+    }
+    
+    .customer-details {
+        padding-left: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Container extra small */
+    .container {
+        padding: 0 5px;
+    }
+    
+    /* Header extra small */
+    .header {
+        padding: 1rem 0;
+    }
+    
+    .header-content h1 {
+        font-size: 1.3rem;
+    }
+    
+    /* Buttons extra small */
+    .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+    }
+    
+    .btn-sm {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.75rem;
+    }
+    
+    /* Cards extra small */
+    .product-card,
+    .appointment-card,
+    .invoice-card {
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .product-image {
+        height: 150px;
+    }
+    
+    /* Actions extra small */
+    .product-actions,
+    .appointment-actions,
+    .invoice-actions {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .product-actions .btn,
+    .appointment-actions .btn,
+    .invoice-actions .btn {
+        width: 100%;
+        margin: 0;
+    }
+    
+    /* Modal extra small */
+    .modal-content {
+        width: 98%;
+        margin: 0.5rem;
+    }
+    
+    .modal-header {
+        padding: 0.75rem;
+    }
+    
+    #productForm {
+        padding: 0.75rem;
+    }
+    
+    /* Typography adjustments */
+    .product-name {
+        font-size: 1rem;
+    }
+    
+    .product-price {
+        font-size: 1.1rem;
+    }
+    
+    .invoice-number {
+        font-size: 1rem;
+    }
+    
+    .invoice-total {
+        font-size: 1.1rem;
+    }
+}
+
+/* Loading and Empty States */
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    color: var(--text-light);
+    font-size: 1.1rem;
+}
+
+.loading i {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    color: var(--text-light);
+    font-size: 1.1rem;
+}
+
+.empty-state i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--border-color);
+}
+
+.error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    color: var(--danger-color);
+    background: #fadbd8;
+    border-radius: var(--border-radius);
+    margin: 1rem 0;
+    text-align: center;
+}
+
+.error i {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.error p {
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+/* Accessibility improvements */
+.btn:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+/* Form validation styles */
+.form-group input:invalid,
+.form-group select:invalid,
+.form-group textarea:invalid {
+    border-color: var(--danger-color);
+}
+
+.form-group input:valid,
+.form-group select:valid,
+.form-group textarea:valid {
+    border-color: var(--secondary-color);
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Print styles */
+@media print {
+    .nav-tabs,
+    .section-actions,
+    .product-actions,
+    .appointment-actions,
+    .invoice-actions {
+        display: none !important;
+    }
+    
+    .modal {
+        display: none !important;
+    }
+    
+    .product-card,
+    .appointment-card,
+    .invoice-card {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+}
+
+/* Botón flotante para volver arriba */
+.scroll-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    box-shadow: var(--shadow-hover);
+    transition: var(--transition);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    z-index: 1000;
+}
+
+.scroll-to-top.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.scroll-to-top:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+}
+
+/* Responsive para el botón flotante */
+@media (max-width: 768px) {
+    .scroll-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+        font-size: 1rem;
+    }
+}

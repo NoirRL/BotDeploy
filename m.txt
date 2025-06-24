@@ -1,0 +1,37 @@
+npm install
+node -e "
+const { Sequelize } = require('sequelize');
+const path = require('path');
+const sequelize = new Sequelize({
+    dialect: 'sqlite',
+    storage: path.join(__dirname, 'store_bot.db'),
+    logging: console.log
+});
+sequelize.sync({ alter: true }).then(() => {
+    console.log('Base de datos actualizada');
+    process.exit(0);
+});
+"
+
+
+
+# 1. Instalar dependencias
+npm install
+
+# 2. Actualizar base de datos
+node -e "
+const { Sequelize } = require('sequelize');
+const path = require('path');
+const sequelize = new Sequelize({
+    dialect: 'sqlite',
+    storage: path.join(__dirname, 'store_bot.db'),
+    logging: console.log
+});
+sequelize.sync({ alter: true }).then(() => {
+    console.log('Base de datos actualizada');
+    process.exit(0);
+});
+"
+
+# 3. Iniciar servidor
+npm start

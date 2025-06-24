@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Tienda de Ropa</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-cog"></i> Panel de Administración</h1>
+                <p>Gestiona productos, citas, facturas y admins</p>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav-tabs">
+            <button class="tab-btn active" data-tab="products">
+                <i class="fas fa-box"></i> Productos
+            </button>
+            <button class="tab-btn" data-tab="appointments">
+                <i class="fas fa-calendar"></i> Citas
+            </button>
+            <button class="tab-btn" data-tab="invoices">
+                <i class="fas fa-file-invoice"></i> Facturas
+            </button>
+            <button class="tab-btn" data-tab="admins">
+                <i class="fas fa-users-cog"></i> Admins
+            </button>
+        </nav>
+
+        <!-- Content Sections -->
+        <main class="main-content">
+            <!-- Productos Section -->
+            <section id="products" class="tab-content active">
+                <div class="section-header">
+                    <h2>Gestión de Productos</h2>
+                    <div class="section-actions">
+                        <button id="refreshProductsBtn" class="btn btn-outline btn-icon" title="Refrescar">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                        <button id="addProductBtn" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Agregar Producto
+                        </button>
+                    </div>
+                </div>
+
+                <div class="products-list" id="productsList">
+                    <div class="loading">
+                        <i class="fas fa-spinner fa-spin"></i> Cargando productos...
+                    </div>
+                </div>
+            </section>
+
+            <!-- Citas Section -->
+            <section id="appointments" class="tab-content">
+                <div class="section-header">
+                    <h2>Gestión de Citas</h2>
+                    <div class="section-actions">
+                        <button id="refreshAppointmentsBtn" class="btn btn-outline btn-icon" title="Refrescar">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="appointments-filters">
+                    <div class="filter-group">
+                        <label for="appointmentFilter">Estado:</label>
+                        <select id="appointmentFilter">
+                            <option value="all">Todas las citas</option>
+                            <option value="pending">Pendientes</option>
+                            <option value="confirmed">Confirmadas</option>
+                            <option value="attended">Atendidas</option>
+                            <option value="cancelled">Canceladas</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="appointmentDateFilter">Fecha:</label>
+                        <select id="appointmentDateFilter">
+                            <option value="all">Todas las fechas</option>
+                            <option value="today">Hoy</option>
+                            <option value="tomorrow">Mañana</option>
+                            <option value="week">Esta semana</option>
+                            <option value="month">Este mes</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="appointments-list" id="appointmentsList">
+                    <div class="loading">
+                        <i class="fas fa-spinner fa-spin"></i> Cargando citas...
+                    </div>
+                </div>
+            </section>
+
+            <!-- Facturas Section -->
+            <section id="invoices" class="tab-content">
+                <div class="section-header">
+                    <h2>Gestión de Facturas</h2>
+                    <div class="section-actions">
+                        <button id="refreshInvoicesBtn" class="btn btn-outline btn-icon" title="Refrescar">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="invoices-filters">
+                    <div class="filter-group">
+                        <label for="invoiceStatusFilter">Estado:</label>
+                        <select id="invoiceStatusFilter">
+                            <option value="all">Todas las facturas</option>
+                            <option value="pending">Pendientes</option>
+                            <option value="paid">Pagadas</option>
+                            <option value="cancelled">Canceladas</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="invoices-list" id="invoicesList">
+                    <div class="loading">
+                        <i class="fas fa-spinner fa-spin"></i> Cargando facturas...
+                    </div>
+                </div>
+            </section>
+
+            <!-- Admins Section -->
+            <section id="admins" class="tab-content">
+                <div class="section-header">
+                    <h2>Gestión de Admins</h2>
+                    <div class="section-actions">
+                        <button id="refreshAdminsBtn" class="btn btn-outline btn-icon" title="Refrescar">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                        <button id="addAdminBtn" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Agregar Admin
+                        </button>
+                    </div>
+                </div>
+
+                <div class="admins-list" id="adminsList">
+                    <div class="loading">
+                        <i class="fas fa-spinner fa-spin"></i> Cargando admins...
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Botón flotante para volver arriba -->
+    <button class="scroll-to-top" id="scrollToTopBtn" title="Volver arriba">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Product Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Agregar Producto</h2>
+                <span class="close">&times;</span>
+            </div>
+            <form id="productForm" class="product-form">
+                <div class="form-group">
+                    <label for="productName">Nombre del Producto:</label>
+                    <input type="text" id="productName" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="productBrand">Marca:</label>
+                    <input type="text" id="productBrand" name="brand">
+                </div>
+                
+                <div class="form-group">
+                    <label for="productCategory">Categoría:</label>
+                    <select id="productCategory" name="category" required>
+                        <option value="">Selecciona una categoría</option>
+                        <option value="ropa">Ropa</option>
+                        <option value="lenceria">Lencería</option>
+                    </select>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="productPrice">Precio:</label>
+                        <input type="number" id="productPrice" name="price" min="0" step="0.01" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="productStock">Stock:</label>
+                        <input type="number" id="productStock" name="stock" min="0" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="productImage">URL de Imagen:</label>
+                    <input type="url" id="productImage" name="image_url">
+                </div>
+                  <div class="form-group">
+                    <label for="colorsInput">Colores <span class="required">*</span> (separados por comas):</label>
+                    <input type="text" id="colorsInput" placeholder="Ej: Rojo, Azul, Negro" required>
+                    <small class="field-hint">Ingresa al menos un color para el producto</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="sizesInput">Tallas <span class="required">*</span> (separados por comas):</label>
+                    <input type="text" id="sizesInput" placeholder="Ej: S, M, L, XL" required>
+                    <small class="field-hint">Ingresa al menos una talla para el producto</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="productDescription">Descripción:</label>
+                    <textarea id="productDescription" name="description" rows="3"></textarea>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" id="cancelBtn" class="btn btn-outline">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar Producto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Modal -->
+    <div id="adminModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="adminModalTitle">Agregar Admin</h3>
+                <span class="close">&times;</span>
+            </div>
+            <form id="adminForm">
+                <div class="form-group">
+                    <label for="adminTelegramId">ID de Telegram:</label>
+                    <input type="number" id="adminTelegramId" name="telegram_id" required>
+                    <small>ID numérico de Telegram del usuario que debe estar registrado en el bot</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="adminLocal">Local:</label>
+                    <input type="text" id="adminLocal" name="local" required>
+                    <small>Nombre del local donde trabaja</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="adminRole">Rol:</label>
+                    <input type="text" id="adminRole" name="role" required placeholder="Ej: Dependiente, Secretaria, Gerente">
+                    <small>Rol o cargo del administrador</small>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" id="cancelAdminBtn" class="btn btn-outline">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar Admin</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Telegram WebApp Script -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

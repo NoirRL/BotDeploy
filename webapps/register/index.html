@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - Tienda</title>
+    <link rel="stylesheet" href="/register/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="register-card">
+            <div class="header">
+                <i class="fas fa-user-plus"></i>
+                <h1>Registro Requerido</h1>
+                <p>Para acceder a nuestros servicios, necesitas completar tu registro.</p>
+            </div>
+
+            <div class="error-message" id="errorMessage" style="display: none;"></div>
+            
+            <form id="registerForm" class="register-form">
+                <div class="form-group">
+                    <label for="name">
+                        <i class="fas fa-user"></i>
+                        Nombre Completo
+                    </label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">
+                        <i class="fas fa-phone"></i>
+                        Teléfono
+                    </label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">
+                        <i class="fas fa-envelope"></i>
+                        Correo Electrónico
+                    </label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="address">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Dirección
+                    </label>
+                    <textarea id="address" name="address" rows="3" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="submitBtn">
+                    <i class="fas fa-save"></i>
+                    Completar Registro
+                </button>
+            </form>
+
+            <div class="info-section">
+                <h3><i class="fas fa-info-circle"></i> ¿Por qué necesitamos esta información?</h3>
+                <ul>
+                    <li><i class="fas fa-check"></i> Para procesar tus pedidos</li>
+                    <li><i class="fas fa-check"></i> Para agendar citas y confirmarlas</li>
+                    <li><i class="fas fa-check"></i> Para enviar actualizaciones importantes</li>
+                    <li><i class="fas fa-check"></i> Para brindarte un mejor servicio</li>
+                </ul>
+            </div>
+
+            <div class="bot-link">
+                <p>
+                    <i class="fas fa-robot"></i>
+                    También puedes registrarte desde nuestro bot de Telegram
+                </p>
+                <button id="goToBotBtn" class="btn btn-outline">
+                    <i class="fab fa-telegram"></i>
+                    Ir al Bot
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner" style="display: none;">
+        <div class="spinner"></div>
+        <p>Guardando información...</p>
+    </div>
+
+    <!-- Telegram WebApp Script -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="/register/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,1373 @@
+/* Reset y configuración base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background: var(--bg-color);
+    overflow-x: hidden;
+}
+
+/* AGREGAR: Clase para bloquear scroll cuando modal está abierto */
+body.modal-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+/* Variables CSS mejoradas */
+:root {
+    --primary-color: #007bff;
+    --primary-hover: #0056b3;
+    --primary-dark: #0056b3;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    --light-color: #f8f9fa;
+    --dark-color: #343a40;
+    --white: #ffffff;
+    --text-color: #212529;
+    --text-light: #6c757d;
+    --bg-color: #f8f9fa;
+    --border-color: #dee2e6;
+    --shadow: 0 2px 10px rgba(0,0,0,0.1);
+    --shadow-hover: 0 4px 20px rgba(0,0,0,0.15);
+    --border-radius: 12px;
+    --transition: all 0.3s ease;
+    --header-height: 100px; /* Altura fija del header */
+}
+
+/* Container principal */
+.container {
+    max-width: 95%; /* Aumentar a 95% para mejor uso del espacio */
+    margin: 0 auto;
+    padding: 0 2%; /* Margen discreto del 2% en los lados */
+    min-height: 100vh;
+}
+
+/* Header CORREGIDO - Ahora se desplaza con el contenido */
+.header {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+    color: white;
+    padding: 1rem 0;
+    box-shadow: var(--shadow);
+    position: relative; /* Cambiar de fixed a relative para que se desplace */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    width: 100%; /* Ocupar todo el ancho */
+    margin: 0; /* Eliminar cualquier margen */
+}
+
+.header-content {
+    width: 100%; /* Cambiar de max-width: 1200px a width: 100% */
+    margin: 0;
+    padding: 0 2rem; /* Añadir padding interno para contenido */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.header-content h1 {
+    margin: 0;
+    font-size: 2.2rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.header-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: var(--transition);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    height: 48px; /* NUEVO: Altura fija para todos los botones */
+    min-height: 48px; /* NUEVO: Altura mínima garantizada */
+    box-sizing: border-box; /* NUEVO: Incluir padding y border en la altura */
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,123,255,0.3);
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background: #5a6268;
+}
+
+.btn-danger {
+    background: var(--danger-color);
+    color: white;
+}
+
+.btn-danger:hover:not(:disabled) {
+    background: #c82333;
+}
+
+.btn-outline {
+    background: var(--white);
+    border: 2px solid var(--white);
+    color: var(--primary-color);
+    font-weight: 600;
+    height: 48px; /* NUEVO: Asegurar altura específica */
+    min-height: 48px; /* NUEVO: Altura mínima específica */
+}
+
+.btn-outline:hover {
+    background: var(--primary-color);
+    color: var(--white);
+    border-color: var(--primary-color);
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.btn-full {
+    width: 100%;
+}
+
+/* Cart button mejorado */
+.cart-btn {
+    position: relative;
+    background: white !important;
+    color: var(--primary-color) !important;
+    border: 2px solid var(--primary-color) !important;
+    height: 48px !important; /* NUEVO: Forzar altura específica */
+    min-height: 48px !important; /* NUEVO: Forzar altura mínima específica */
+    padding: 0.75rem 1.5rem !important; /* NUEVO: Padding uniforme forzado */
+}
+
+.cart-btn:hover {
+    background: var(--primary-color) !important;
+    color: white !important;
+}
+
+#cartCount {
+    background: var(--danger-color);
+    color: white;
+    border-radius: 50%;
+    padding: 0.2rem 0.5rem;
+    font-size: 0.8rem;
+    min-width: 1.5rem;
+    text-align: center;
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    line-height: 1;
+    display: flex; /* NUEVO: Usar flexbox para centrar */
+    align-items: center; /* NUEVO: Centrar verticalmente */
+    justify-content: center; /* NUEVO: Centrar horizontalmente */
+    height: 20px; /* NUEVO: Altura fija para el contador */
+}
+
+/* Botón de facturas */
+#invoicesBtn {
+    background: white !important;
+    color: var(--primary-color) !important;
+    border: 2px solid var(--primary-color) !important;
+    height: 48px !important; /* NUEVO: Forzar altura específica */
+    min-height: 48px !important; /* NUEVO: Forzar altura mínima específica */
+    padding: 0.75rem 1.5rem !important; /* NUEVO: Padding uniforme forzado */
+}
+
+#invoicesBtn:hover {
+    background: var(--primary-color) !important;
+    color: white !important;
+}
+
+/* Filters Section */
+.filters-section {
+    margin-top: 1rem; /* Reducir margen para compensar el padding del container */
+    margin-bottom: 2rem;
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    width: 90%; /* Ancho uniforme del 90% */
+    max-width: 800px; /* Límite máximo */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.filters {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center; /* NUEVO: Alinear elementos verticalmente */
+}
+
+.filter-select {
+    padding: 0.75rem 1rem; /* MODIFICADO: Añadir padding horizontal uniforme */
+    border: 2px solid var(--border-color); /* MODIFICADO: Borde más grueso para consistencia */
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    min-width: 200px;
+    background: var(--white);
+    color: var(--text-color);
+    font-weight: 500; /* NUEVO: Peso de fuente consistente */
+    transition: var(--transition); /* NUEVO: Transición suave */
+    height: 48px; /* NUEVO: Altura fija para consistencia */
+}
+
+/* NUEVO: Estados hover y focus para el selector */
+.filter-select:hover {
+    border-color: var(--primary-color);
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.search-box {
+    position: relative;
+    flex: 1;
+    min-width: 250px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 0.75rem 3rem 0.75rem 1rem; /* MODIFICADO: Padding uniforme */
+    border: 2px solid var(--border-color); /* MODIFICADO: Borde más grueso para consistencia */
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-weight: 500; /* NUEVO: Peso de fuente consistente */
+    transition: var(--transition); /* NUEVO: Transición suave */
+    height: 48px; /* NUEVO: Altura fija para consistencia */
+}
+
+/* NUEVO: Estados hover y focus para el buscador */
+.search-box input:hover {
+    border-color: var(--primary-color);
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.search-box i {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-light);
+    transition: var(--transition); /* NUEVO: Transición para el icono */
+}
+
+/* NUEVO: Cambiar color del icono cuando el input tiene focus */
+.search-box input:focus + i {
+    color: var(--primary-color);
+}
+
+/* Products Grid */
+.products-section {
+    min-height: 60vh;
+    width: 90%; /* Ancho uniforme del 90% */
+    max-width: 1200px; /* Límite máximo */
+    margin: 0 auto;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    min-height: 200px; /* Altura mínima para evitar saltos */
+}
+
+.product-card {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.product-image {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    background: var(--light-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
+.product-card:hover .product-image img {
+    transform: scale(1.05);
+}
+
+.image-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+    color: #999;
+    font-size: 2rem;
+}
+
+.product-info {
+    padding: 1rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.product-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--dark-color);
+    margin: 0;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.product-brand {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0;
+    font-weight: 500;
+}
+
+.product-price-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 0.5rem;
+}
+
+.product-price {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.product-stock {
+    font-size: 0.8rem;
+    color: #666;
+    background: var(--light-color);
+    padding: 0.2rem 0.5rem;
+    border-radius: 20px;
+}
+
+.product-category {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    background: var(--primary-color);
+    color: white;
+    padding: 0.2rem 0.5rem;
+    border-radius: 15px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+/* Stock badges */
+.stock-badge {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 15px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    z-index: 2;
+}
+
+.stock-badge.out-of-stock {
+    background: var(--danger-color);
+    color: white;
+}
+
+.stock-badge.low-stock {
+    background: var(--warning-color);
+    color: var(--dark-color);
+}
+
+/* Cart Sidebar */
+.cart-sidebar {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: min(400px, 90vw); /* Ancho responsivo con máximo de 90% del viewport */
+    height: 100vh;
+    background: white;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    transition: right 0.3s ease;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-sidebar.open {
+    right: 0;
+}
+
+.cart-header {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--light-color);
+}
+
+.cart-header h3 {
+    margin: 0;
+    color: var(--dark-color);
+}
+
+.close-cart {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #666;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.close-cart:hover {
+    background: var(--border-color);
+    color: var(--dark-color);
+}
+
+.cart-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+}
+
+.cart-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.cart-item:last-child {
+    border-bottom: none;
+}
+
+.item-image {
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--light-color);
+}
+
+.item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.item-details {
+    flex: 1;
+}
+
+.item-details h4 {
+    margin: 0 0 0.5rem;
+    font-size: 0.9rem;
+    color: var(--dark-color);
+}
+
+.item-details .brand,
+.item-details .variant {
+    font-size: 0.8rem;
+    color: #666;
+    margin: 0.2rem 0;
+}
+
+.item-details .price {
+    font-weight: 600;
+    color: var(--primary-color);
+    margin: 0.5rem 0 0;
+}
+
+.item-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--light-color);
+    border-radius: 20px;
+    padding: 0.2rem;
+}
+
+.qty-btn {
+    background: white;
+    border: 1px solid var(--border-color);
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: var(--transition);
+}
+
+.qty-btn:hover {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.quantity {
+    min-width: 20px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.remove-btn {
+    background: var(--danger-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: var(--transition);
+}
+
+.remove-btn:hover {
+    background: #c82333;
+    transform: scale(1.1);
+}
+
+.cart-footer {
+    border-top: 1px solid var(--border-color);
+    padding: 1rem;
+    background: var(--light-color);
+}
+
+.cart-total {
+    margin-bottom: 1rem;
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--dark-color);
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1002;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    backdrop-filter: blur(5px);
+    padding: 2%; /* Margen discreto para el modal */
+}
+
+.modal-content {
+    background-color: white;
+    margin: 5% auto; /* Cambiar de 2% a 5% para que aparezca más arriba */
+    padding: 0;
+    border-radius: var(--border-radius);
+    width: 90%; /* Ancho uniforme del 90% */
+    max-width: 600px;
+    max-height: 85vh; /* Reducir altura máxima */
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px); /* Reducir desplazamiento inicial */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--light-color);
+}
+
+.modal-header h3 {
+    margin: 0;
+    color: var(--dark-color);
+}
+
+.close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #666;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.close:hover {
+    background: var(--border-color);
+    color: var(--dark-color);
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+/* Product detail grid */
+.product-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.product-image-container {
+    position: relative;
+}
+
+.product-image-container img {
+    width: 100%;
+    border-radius: var(--border-radius);
+}
+
+.product-details h3 {
+    margin: 0 0 0.5rem;
+    color: var(--dark-color);
+}
+
+.product-details .product-brand {
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.product-details .product-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.product-details .product-description {
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+.product-details .product-stock {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+/* Selection groups */
+.selection-group {
+    margin-bottom: 1rem;
+}
+
+.selection-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--dark-color);
+}
+
+.color-options, .size-options {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.color-option, .size-option {
+    padding: 0.5rem 1rem;
+    margin: 0.25rem;
+    border: 2px solid var(--border-color);
+    background: white;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 0.9rem;
+}
+
+.color-option:hover, .size-option:hover {
+    border-color: var(--primary-color);
+    background: var(--light-color);
+}
+
+.color-option.selected, .size-option.selected {
+    border-color: var(--primary-color);
+    background: var(--primary-color);
+    color: white;
+}
+
+/* Quantity group */
+.quantity-group {
+    margin-bottom: 1.5rem;
+}
+
+.quantity-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--dark-color);
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.quantity-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.quantity-btn:hover {
+    background: var(--primary-hover);
+    transform: scale(1.1);
+}
+
+#quantity {
+    width: 60px;
+    text-align: center;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+/* Invoices */
+.invoices-list {
+    max-height: 60vh;
+    overflow-y: auto;
+    width: 90%; /* Ancho uniforme del 90% */
+    max-width: 800px; /* Límite máximo */
+    margin: 0 auto;
+}
+
+.invoice-card {
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.invoice-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.invoice-number {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.invoice-date {
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.invoice-total {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.invoice-items {
+    margin-top: 1rem;
+}
+
+.invoice-item {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    transition: var(--transition);
+}
+
+.invoice-item:hover {
+    box-shadow: var(--shadow);
+}
+
+.invoice-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.invoice-header h4 {
+    margin: 0;
+    color: var(--dark-color);
+    font-size: 1.1rem;
+}
+
+.invoice-status {
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.invoice-status.pending {
+    background: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeaa7;
+}
+
+.invoice-status.paid {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.invoice-status.cancelled {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.invoice-status.completed {
+    background: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+.invoice-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.5rem;
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.invoice-details p {
+    margin: 0;
+}
+
+/* Estados y utilidades */
+.hidden {
+    display: none !important;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-light);
+    font-size: 1.1rem;
+}
+
+.error-state {
+    text-align: center;
+    padding: 2rem;
+    color: var(--danger-color);
+    background: #fadbd8;
+    border-radius: var(--border-radius);
+    margin: 1rem 0;
+}
+
+.error-message {
+    text-align: center;
+    padding: 2rem;
+    color: var(--danger-color);
+    background: #fadbd8;
+    border-radius: var(--border-radius);
+    margin: 1rem 0;
+}
+
+.error-message h3 {
+    margin-bottom: 1rem;
+    color: var(--danger-color);
+}
+
+.error-message p {
+    margin-bottom: 1.5rem;
+}
+
+.retry-btn {
+    margin-top: 1rem;
+}
+
+/* Toast messages para notificaciones */
+.message-toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 1rem 1.5rem;
+    border-radius: var(--border-radius);
+    color: white;
+    font-weight: 500;
+    z-index: 10000;
+    animation: slideInRight 0.3s ease-out;
+    box-shadow: var(--shadow-hover);
+    max-width: 400px;
+    word-wrap: break-word;
+}
+
+.message-toast.success {
+    background: var(--success-color);
+}
+
+.message-toast.error {
+    background: var(--danger-color);
+}
+
+.message-toast.info {
+    background: var(--info-color);
+}
+
+.message-toast.warning {
+    background: var(--warning-color);
+    color: var(--dark-color);
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Invoice confirmation modal styles */
+.invoice-confirmation {
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+.success-icon {
+    font-size: 4rem;
+    color: var(--success-color);
+    margin-bottom: 1rem;
+}
+
+.invoice-confirmation h4 {
+    color: var(--success-color);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.total-amount {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--dark-color);
+    margin-bottom: 2rem;
+}
+
+/* Invoice deadline warning */
+.invoice-deadline {
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    margin: 2rem 0;
+    display: flex;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.invoice-deadline i {
+    font-size: 1.5rem;
+    color: #f39c12;
+    margin-right: 1rem;
+    margin-top: 0.2rem;
+}
+
+.invoice-deadline-text strong {
+    color: var(--dark-color);
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.invoice-deadline-date {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #e67e22;
+    margin-bottom: 0.5rem;
+}
+
+.invoice-deadline-message {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* Color and size option buttons */
+.color-option, .size-option {
+    padding: 0.5rem 1rem;
+    margin: 0.25rem;
+    border: 2px solid var(--border-color);
+    background: white;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 0.9rem;
+}
+
+.color-option:hover, .size-option:hover {
+    border-color: var(--primary-color);
+    background: var(--light-color);
+}
+
+.color-option.selected, .size-option.selected {
+    border-color: var(--primary-color);
+    background: var(--primary-color);
+    color: white;
+}
+
+/* Stock badges para productos */
+.stock-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: white;
+}
+
+.stock-badge.out-of-stock {
+    background: var(--danger-color);
+}
+
+.stock-badge.low-stock {
+    background: var(--warning-color);
+    color: var(--dark-color);
+}
+
+/* Mejoras para el modal de invoices */
+.invoice-item {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    transition: var(--transition);
+}
+
+.invoice-item:hover {
+    box-shadow: var(--shadow);
+}
+
+.invoice-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.invoice-header h4 {
+    margin: 0;
+    color: var(--dark-color);
+    font-size: 1.1rem;
+}
+
+.invoice-status {
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.invoice-status.pending {
+    background: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeaa7;
+}
+
+.invoice-status.paid {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.invoice-status.cancelled {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.invoice-status.completed {
+    background: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+.invoice-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.5rem;
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.invoice-details p {
+    margin: 0;
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+    .message-toast {
+        left: 20px;
+        right: 20px;
+        max-width: none;
+    }
+    
+    .invoice-deadline {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .invoice-deadline i {
+        margin-right: 0;
+        margin-bottom: 1rem;
+    }
+    
+        .invoice-details {
+            grid-template-columns: 1fr;
+            gap: 0.25rem;
+        }
+    }
+    
+    /* AGREGAR: Estilos para el botón flotante de scroll */
+.scroll-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    box-shadow: var(--shadow-hover);
+    transition: var(--transition);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    z-index: 1000;
+}
+
+.scroll-to-top.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.scroll-to-top:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,123,255,0.4);
+}
+
+/* AGREGAR: Estilos para loading mejorado */
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    color: var(--text-light);
+    font-size: 1.1rem;
+}
+
+.loading i {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+/* AGREGAR: Mejorar estilos del grid de productos */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    min-height: 200px; /* Altura mínima para evitar saltos */
+}
+
+/* AGREGAR: Estilos para el carrito vacío */
+.empty-cart {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-light);
+}
+
+.empty-cart i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--border-color);
+}
+
+/* AGREGAR: Mejorar responsive para productos */
+@media (max-width: 768px) {
+    .products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1rem;
+    }
+    
+    .product-detail-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .cart-sidebar {
+        width: 100%;
+        right: -100%;
+    }
+    
+    .filters {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .filter-select,
+    .search-box {
+        min-width: 100%;
+    }
+    
+    .header-content {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+    
+    .header-actions {
+        justify-content: center;
+        width: 100%;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 2% auto;
+        max-height: 90vh;
+    }
+    
+    .scroll-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+        font-size: 1rem;
+    }
+}

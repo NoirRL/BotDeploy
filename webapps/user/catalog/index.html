@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo - Tienda de Ropa</title>
+    <link rel="stylesheet" href="/user/catalog/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- AGREGAR verificación de carga de CSS -->
+    <script>
+        // Verificar que el CSS se cargue correctamente
+        function checkCSSLoaded() {
+            const links = document.querySelectorAll('link[rel="stylesheet"]');
+            links.forEach(link => {
+                link.addEventListener('error', function() {
+                    console.error('Error cargando CSS:', this.href);
+                    // Intentar recargar el CSS
+                    setTimeout(() => {
+                        this.href = this.href + '?v=' + Date.now();
+                    }, 1000);
+                });
+            });
+        }
+        checkCSSLoaded();
+    </script>
+    <!-- MOVER: Telegram WebApp Script ANTES que todo -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <!-- Header fuera del container para ocupar todo el ancho -->
+    <header class="header">
+        <div class="header-content">
+            <h1><i class="fas fa-store"></i> Catálogo</h1>
+            <div class="header-actions">
+                <button class="btn btn-outline cart-btn" id="cartBtn">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cartCount">0</span>
+                </button>
+                <button class="btn btn-outline" id="invoicesBtn">
+                    <i class="fas fa-file-invoice"></i> Mis Facturas
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Filters -->
+        <section class="filters-section">
+            <div class="filters">
+                <select id="categoryFilter" class="filter-select">
+                    <option value="">Todas las categorías</option>
+                    <option value="pantalones">Pantalones</option>
+                    <option value="camisas">Camisas</option>
+                    <option value="vestidos">Vestidos</option>
+                    <option value="zapatos">Zapatos</option>
+                    <option value="accesorios">Accesorios</option>
+                </select>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Buscar productos...">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Grid -->
+        <main class="products-section">
+            <div class="products-grid" id="productsGrid">
+                <div class="loading">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    Cargando productos...
+                </div>
+            </div>
+        </main>
+
+        <!-- Cart Sidebar -->
+        <div class="cart-sidebar" id="cartSidebar">
+            <div class="cart-header">
+                <h3><i class="fas fa-shopping-cart"></i> Mi Carrito</h3>
+                <button class="close-cart" id="closeCart">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="cart-content" id="cartContent">
+                <div class="empty-cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <p>Tu carrito está vacío</p>
+                </div>
+            </div>
+            <div class="cart-footer" id="cartFooter" style="display: none;">
+                <div class="cart-total">
+                    <strong>Total: $<span id="cartTotal">0.00</span></strong>
+                </div>
+                <button class="btn btn-primary btn-full" id="checkoutBtn">
+                    <i class="fas fa-credit-card"></i> Generar Factura
+                </button>
+            </div>
+        </div>
+
+        <!-- Product Detail Modal -->
+        <div class="modal" id="productModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modalProductName">Producto</h3>
+                    <span class="close" id="closeModal">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <div class="product-detail-grid">
+                        <div class="product-image-container">
+                            <img id="modalProductImage" src="" alt="">
+                            <div class="image-placeholder" id="modalImagePlaceholder">
+                                <i class="fas fa-image"></i>
+                            </div>
+                        </div>
+                        <div class="product-details">
+                            <div class="product-brand" id="modalProductBrand"></div>
+                            <div class="product-price" id="modalProductPrice"></div>
+                            <div class="product-description" id="modalProductDescription"></div>
+                            <div class="product-stock" id="modalProductStock"></div>
+                            
+                            <!-- Color Selection -->
+                            <div class="selection-group" id="colorSelection" style="display: none;">
+                                <label>Color:</label>
+                                <div class="color-options" id="colorOptions"></div>
+                            </div>
+                            
+                            <!-- Size Selection -->
+                            <div class="selection-group" id="sizeSelection" style="display: none;">
+                                <label>Talla:</label>
+                                <div class="size-options" id="sizeOptions"></div>
+                            </div>
+                            
+                            <!-- Quantity -->
+                            <div class="quantity-group">
+                                <label>Cantidad:</label>
+                                <div class="quantity-controls">
+                                    <button class="quantity-btn" id="decreaseQty">-</button>
+                                    <input type="number" id="quantity" value="1" min="1" max="3" readonly>
+                                    <button class="quantity-btn" id="increaseQty">+</button>
+                                </div>
+                                <small>Máximo 3 unidades por producto</small>
+                            </div>
+                            
+                            <button class="btn btn-primary btn-full" id="addToCartBtn">
+                                <i class="fas fa-cart-plus"></i> Agregar al Carrito
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Invoices Modal -->
+        <div class="modal" id="invoicesModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Mis Facturas</h3>
+                    <span class="close" id="closeInvoicesModal">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <div class="invoices-list" id="invoicesList">
+                        <div class="loading">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            Cargando facturas...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overlay -->
+        <div class="overlay" id="overlay"></div>
+        
+        <!-- Botón flotante para volver arriba -->
+        <button class="scroll-to-top" id="scrollToTopBtn" title="Volver arriba">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+    </div>
+
+    <!-- REMOVER: Ya se movió arriba -->
+    <script src="/user/catalog/script.js"></script>
+</body>
+</html>
